@@ -1,0 +1,47 @@
+{
+  "name": "adonis-scheduler",
+  "version": "0.1.0",
+  "description": "Easy task scheduling for AdonisJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover _mocha -- -R spec test",
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha test",
+    "eslint": "eslint ."
+  },
+  "author": "Nicholas Rempel <nbrempel@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-schedule": "^1.1.1"
+  },
+  "peerDependencies": {
+    "adonis-fold": "^3.0.1"
+  },
+  "devDependencies": {
+    "adonis-fold": "^3.0.1",
+    "chai": "^3.2.0",
+    "co": "^4.6.0",
+    "co-mocha": "^1.1.2",
+    "coveralls": "^2.11.4",
+    "eslint-config-airbnb": "^9.0.1",
+    "istanbul": "^0.3.20",
+    "mocha": "^2.3.2",
+    "mocha-lcov-reporter": "0.0.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nrempel/adonis-scheduler.git"
+  },
+  "keywords": [
+    "adonis",
+    "task",
+    "scheduler",
+    "cron"
+  ],
+  "bugs": {
+    "url": "https://github.com/nrempel/adonis-scheduler/issues"
+  },
+  "homepage": "https://github.com/nrempel/adonis-scheduler#readme"
+}
