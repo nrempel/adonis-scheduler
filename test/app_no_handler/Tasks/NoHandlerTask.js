@@ -2,7 +2,7 @@
 
 class NoHandlerTask {
 
-  static get schedule() {
+  get schedule() {
     return '*/1 * * * * *';
   }
   

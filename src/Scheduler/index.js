@@ -31,14 +31,13 @@ class Scheduler {
         const filePath = path.join(this.tasksPath, file);
         try {
           const Task = require(filePath);
-          
-          // Every task must expose a schedule
-          if (!Task.schedule) {
-            throw new Error(`No schedule found for task: ${filePath}`);
-          }
-
           // Get instance of task class
           const taskInstance = Ioc.make(Task);
+
+          // Every task must expose a schedule
+          if (!taskInstance.schedule) {
+            throw new Error(`No schedule found for task: ${filePath}`);
+          }
 
           // Every task must expose a handle function
           if (!taskInstance.handle) {
@@ -46,10 +45,10 @@ class Scheduler {
           }
 
           // Track currently registered tasks in memory
-          this.registeredTasks.push(Task);
+          this.registeredTasks.push(taskInstance);
 
           // Register task handler
-          this.instance.scheduleJob(Task.schedule, taskInstance.handle);
+          this.instance.scheduleJob(taskInstance.schedule, taskInstance.handle);
         } catch (e) {
           // If this file is not a valid javascript class, print warning and return
           if (e instanceof ReferenceError) {
