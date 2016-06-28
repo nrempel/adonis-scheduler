@@ -35,7 +35,7 @@ class Scheduler {
           const taskInstance = Ioc.make(Task);
 
           // Every task must expose a schedule
-          if (!taskInstance.schedule) {
+          if (!Task.schedule) {
             throw new Error(`No schedule found for task: ${filePath}`);
           }
 
@@ -45,10 +45,10 @@ class Scheduler {
           }
 
           // Track currently registered tasks in memory
-          this.registeredTasks.push(taskInstance);
+          this.registeredTasks.push(Task);
 
           // Register task handler
-          this.instance.scheduleJob(taskInstance.schedule, taskInstance.handle);
+          this.instance.scheduleJob(Task.schedule, taskInstance.handle);
         } catch (e) {
           // If this file is not a valid javascript class, print warning and return
           if (e instanceof ReferenceError) {

@@ -2,7 +2,7 @@
 
 class GoodTask {
 
-  get schedule() {
+  static get schedule() {
     return '*/1 * * * * *';
   }
 

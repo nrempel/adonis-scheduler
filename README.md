@@ -52,10 +52,10 @@ The provider looks for jobs in the `app/Tasks` directory of your AdonisJS projec
 
 Jobs are easy to create. They live in `app/Tasks` and they are a simple class. They expose the following properties:
 
-| Name        | Required | type      | Description                                           |
-|-------------|----------|-----------|----------------------------------------------------------------|
-| schedule    | true     | many      | The schedule for which the task should run. [More docs.](https://github.com/node-schedule/node-schedule#cron-style-scheduling)      |
-| handle      | true     | function  | A function that is called for this task.               |
+| Name        | Required | Type      | Static | Description                                           |
+|-------------|----------|-----------|--------|--------------------------------------------------------|
+| schedule    | true     | many      | true   | The schedule for which the task should run. [More docs.](https://github.com/node-schedule/node-schedule#cron-style-scheduling)      |
+| handle      | true     | function  | false  | A function that is called for this task.               |
 
 [Here's an example.](examples/app/Tasks/Example.js)
 

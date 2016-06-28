@@ -4,7 +4,7 @@ class Example {
 
   // This is required. This is the schedule for which the task will run.
   // More docs here: https://github.com/node-schedule/node-schedule#cron-style-scheduling
-  get schedule() {
+  static get schedule() {
     // once every minute
     return '*/1 * * * *';
   }
