@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const CatLog = require('cat-log');
 const logger = new CatLog('adonis:scheduler');
+const Ioc = require('adonis-fold').Ioc;
 
 /**
  * @module Scheduler
@@ -36,8 +37,11 @@ class Scheduler {
             throw new Error(`No schedule found for task: ${filePath}`);
           }
 
+          // Get instance of task class
+          const taskInstance = Ioc.make(Task);
+
           // Every task must expose a handle function
-          if (!Task.handle) {
+          if (!taskInstance.handle) {
             throw new Error(`No handler found for task: ${filePath}`);
           }
 
@@ -45,7 +49,7 @@ class Scheduler {
           this.registeredTasks.push(Task);
 
           // Register task handler
-          this.instance.scheduleJob(Task.schedule, Task.handle);
+          this.instance.scheduleJob(Task.schedule, taskInstance.handle);
         } catch (e) {
           // If this file is not a valid javascript class, print warning and return
           if (e instanceof ReferenceError) {

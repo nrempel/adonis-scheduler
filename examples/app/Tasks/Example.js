@@ -10,7 +10,7 @@ class Example {
   }
 
   // This is the function that is called at the defined schedule
-  static handle() {
+  * handle() {
     // Do stuff here
   }
 
