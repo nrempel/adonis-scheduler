@@ -50,7 +50,7 @@ The provider looks for jobs in the `app/Tasks` directory of your AdonisJS projec
 
 ### Creating your first task
 
-Jobs are easy to create. They live in `app/Tasks` and they are a simple class. They expose the following `static` properties:
+Jobs are easy to create. They live in `app/Tasks` and they are a simple class. They expose the following properties:
 
 | Name        | Required | type      | Description                                           |
 |-------------|----------|-----------|----------------------------------------------------------------|
