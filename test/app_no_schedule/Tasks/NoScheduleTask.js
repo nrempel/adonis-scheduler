@@ -2,7 +2,7 @@
 
 class NoScheduleTask {
 
-  * handle() {
+  handle() {
     
   }
 }

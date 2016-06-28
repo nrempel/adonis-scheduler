@@ -48,7 +48,7 @@ class Scheduler {
           this.registeredTasks.push(Task);
 
           // Register task handler
-          this.instance.scheduleJob(Task.schedule, taskInstance.handle);
+          this.instance.scheduleJob(Task.schedule, taskInstance.handle.bind(taskInstance));
         } catch (e) {
           // If this file is not a valid javascript class, print warning and return
           if (e instanceof ReferenceError) {

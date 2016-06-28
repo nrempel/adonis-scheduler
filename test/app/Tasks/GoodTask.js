@@ -6,7 +6,7 @@ class GoodTask {
     return '*/1 * * * * *';
   }
 
-  * handle() {
+  handle() {
   
   }
 }
