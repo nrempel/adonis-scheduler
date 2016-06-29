@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 const Ioc = require('adonis-fold').Ioc;
 const Command = Ioc.use('Adonis/Src/Command');
