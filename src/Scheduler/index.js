@@ -1,5 +1,6 @@
 'use strict';
 
+const co = require('co');
 const fs = require('fs');
 const path = require('path');
 const CatLog = require('cat-log');
@@ -48,7 +49,7 @@ class Scheduler {
           this.registeredTasks.push(Task);
 
           // Register task handler
-          this.instance.scheduleJob(Task.schedule, taskInstance.handle.bind(taskInstance));
+          this.instance.scheduleJob(Task.schedule, co.wrap(taskInstance.handle.bind(taskInstance)));
         } catch (e) {
           // If this file is not a valid javascript class, print warning and return
           if (e instanceof ReferenceError) {

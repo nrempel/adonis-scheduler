@@ -11,6 +11,7 @@
   "author": "Nicholas Rempel <nbrempel@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "co": "^4.6.0",
     "node-schedule": "^1.1.1"
   },
   "peerDependencies": {
