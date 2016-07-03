@@ -1,6 +1,6 @@
 {
   "name": "adonis-scheduler",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Easy task scheduling for AdonisJS",
   "main": "index.js",
   "scripts": {
