@@ -1,4 +1,4 @@
-# Adonis Kue Provider
+# Adonis Scheduler Provider
 
 This library provides an easy way to schedule recurring tasks for AdonisJS.
 
