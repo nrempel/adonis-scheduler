@@ -56,6 +56,7 @@ class Scheduler {
             this.logger.warn('Unable to import task class <%s>. Is it a valid javascript class?', file);
             return;
           } else {
+            this.logger.error(e);
             throw e;
           }
         }
@@ -67,6 +68,7 @@ class Scheduler {
         this.logger.info('The tasks directory <%s> does not exist. Exiting.', this.tasksPath);
       } else {
         // If it's some other error, bubble up exception
+        this.logger.error(e);
         throw e;
       }
     }
