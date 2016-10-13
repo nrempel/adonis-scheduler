@@ -19,7 +19,7 @@ class Listen extends Command {
   }
 
   * handle (options, flags) {
-    yield this.scheduler.run();
+    this.scheduler.run();
   }
 }
 
