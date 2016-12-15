@@ -10,8 +10,9 @@ class Example {
   }
 
   // This is the function that is called at the defined schedule
-  handle() {
+  * handle() {
     // Do stuff here
+    // Supports `yield`
   }
 
 }
