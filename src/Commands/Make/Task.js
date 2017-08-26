@@ -3,7 +3,6 @@
 const Base = require('./Base')
 
 class MakeTask extends Base {
-
   /**
    * The command signature
    *
