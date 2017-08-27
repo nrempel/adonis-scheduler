@@ -1,5 +1,6 @@
 'use strict'
 
+const ms = require('ms')
 const Locker = require('./Locker')
 
 /**
@@ -54,6 +55,7 @@ class Task {
     this.locker = this._getLocker()
     this.prefix = this._makeLogPrefix()
     this.loggerInstance = this._getLogger()
+    this.startedAt = null
 
     this._extendLogger()
   }
@@ -118,6 +120,8 @@ class Task {
       await this.locker.lock()
     }
 
+    this.startedAt = new Date()
+
     try {
       /**
        * Worker task handle
@@ -130,6 +134,23 @@ class Task {
     if (useLock) {
       await this.locker.unlock()
     }
+  }
+
+  /**
+   * Get task running time duration
+   *
+   * @param {Boolean} [source]    Set true for return milliseconds value number
+   * @return {Number}
+   */
+  duration (source = false) {
+    let duration = new Date() - this.startedAt
+
+    if (source) {
+      return duration
+    }
+
+    duration = ms(duration)
+    return duration
   }
 
   /**

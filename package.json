@@ -1,6 +1,6 @@
 {
   "name": "adonis-scheduler",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Easy task scheduling for AdonisJS",
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
@@ -22,6 +22,7 @@
     "debug": "^3.0.1",
     "lockfile": "^1.0.3",
     "lodash": "^4.17.4",
+    "ms": "^2.0.0",
     "node-schedule": "^1.2.4",
     "pify": "^3.0.0",
     "pluralize": "^7.0.0"
