@@ -53,7 +53,6 @@ class Task {
     this.Logger = Logger
     this.name = this._getName()
     this.locker = this._getLocker()
-    this.prefix = this._makeLogPrefix()
     this.loggerInstance = this._getLogger()
     this.startedAt = null
 
@@ -94,14 +93,6 @@ class Task {
    */
   _getLocker () {
     return new Locker(this.name, this.Helpers.tmpPath())
-  }
-
-  /**
-   * @return {String}
-   * @private
-   */
-  _makeLogPrefix () {
-    return this.constructor.useLogPrefix ? `[${this.name}]` : ''
   }
 
   /**
@@ -177,13 +168,15 @@ class Task {
     ]
 
     types.forEach((method) => {
-      this[method] = (message, ...options) => {
-        this.loggerInstance[method](this.prefix, message, ...options)
+      this[method] = (...args) => {
+        this.constructor.useLogPrefix && args.unshift({ task: this.name })
+        this.loggerInstance[method](...args)
       }
     })
 
-    this['log'] = (level, message, ...options) => {
-      this.loggerInstance['log'](level, this.prefix, message, ...options)
+    this['log'] = (...args) => {
+      this.constructor.useLogPrefix && args.splice(1, 0, { task: this.name })
+      this.loggerInstance['log'](...args)
     }
   }
 }
