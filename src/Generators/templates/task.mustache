@@ -1,0 +1,15 @@
+'use strict'
+
+const Task = use('Task')
+
+class {{name}} extends Task {
+  static get schedule () {
+    return '0 */1 * * * *'
+  }
+
+  async handle () {
+    this.info('Task {{ name }} handle')
+  }
+}
+
+module.exports = {{name}}
