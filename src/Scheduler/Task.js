@@ -1,5 +1,6 @@
 'use strict'
 
+const _ = require('lodash')
 const ms = require('ms')
 const Locker = require('./Locker')
 
@@ -169,14 +170,30 @@ class Task {
 
     types.forEach((method) => {
       this[method] = (...args) => {
-        this.constructor.useLogPrefix && args.unshift({ task: this.name })
+        this._addLogPrefix(args)
         this.loggerInstance[method](...args)
       }
     })
 
-    this['log'] = (...args) => {
-      this.constructor.useLogPrefix && args.splice(1, 0, { task: this.name })
-      this.loggerInstance['log'](...args)
+    this['log'] = (level, ...args) => {
+      this._addLogPrefix(args)
+      this.loggerInstance['log'](level, ...args)
+    }
+  }
+
+  /**
+   * @param {Array} args
+   * @private
+   */
+  _addLogPrefix (args) {
+    if (!this.constructor.useLogPrefix) {
+      return
+    }
+
+    if (_.isObject(args[0])) {
+      args[0].task = this.name
+    } else {
+      args.unshift({ task: this.name })
     }
   }
 }
