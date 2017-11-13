@@ -1,94 +1,68 @@
-'use strict';
+'use strict'
 
-const path = require('path');
-const Scheduler = require('../src/Scheduler');
-const chai = require('chai');
-const expect = chai.expect;
-require('co-mocha');
-
-const Helpers = {
-  appPath: function () {
-    return path.join(__dirname, './app');
-  }
-};
-
-const HelpersBadTaskFile = {
-  appPath: function () {
-    return path.join(__dirname, './app_bad_task_file');
-  }
-};
-
-const HelpersNoSchedule = {
-  appPath: function () {
-    return path.join(__dirname, './app_no_schedule');
-  }
-};
-
-const HelpersNoHandler = {
-  appPath: function () {
-    return path.join(__dirname, './app_no_handler');
-  }
-};
-
-const HelpersNoTasks = {
-  appPath: function () {
-    return path.join(__dirname, './app_no_tasks');
-  }
-};
-
-const HelpersNoTasksDir = {
-  appPath: function () {
-    return path.join(__dirname, './app_no_tasks_dir');
-  }
-};
+const path = require('path')
+const Scheduler = require('../src/Scheduler')
+const chai = require('chai')
+const expect = chai.expect
 
 describe('Scheduler', function () {
-  
-  it('Should instantiate correctly', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(Helpers);
-    expect(scheduler.tasksPath).to.equal(path.join(Helpers.appPath(), 'Tasks'));
-    expect(scheduler.registeredTasks).to.eql([]);
-  });
 
-  it('Should run with good tasks', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(Helpers);
-    scheduler.run();
-    expect(typeof scheduler.registeredTasks).to.equal(typeof []);
-    expect(scheduler.registeredTasks.length).to.equal(1);
-  });
+  /**
+   * @param {String} projectName
+   * @return {{appRoot: appRoot}}
+   */
+  function getHelpers (projectName) {
+    return {
+      appRoot: function () {
+        return path.join(__dirname, `./projects/${projectName}`)
+      }
+    }
+  }
 
-  it('Should ignore invalid task file types', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(HelpersBadTaskFile);
-    expect(function () { scheduler.run() }).not.to.throw();
-  });
+  it('Should instantiate correctly', async () => {
+    const Helpers = getHelpers('good')
+    const scheduler = new Scheduler(Helpers)
+    expect(scheduler.tasksPath).to.equal(path.join(Helpers.appRoot(), 'app', 'Tasks'))
+    expect(scheduler.registeredTasks).to.eql([])
+  })
 
-  it('Should fail to run gracefully if task has no schedule property', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(HelpersNoSchedule);
-    expect(function () { scheduler.run() }).to.throw();
-  });
-
-  it('Should fail to run gracefully if task has no handler', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(HelpersNoHandler);
-    expect(function () { scheduler.run() }).to.throw();
-  });
-
-  it('Should fail to run gracefully if no task dir exists', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(HelpersNoTasksDir);
+  it('Should run with good tasks', () => {
+    const Helpers = getHelpers('good')
+    const scheduler = new Scheduler(Helpers)
     scheduler.run()
-    expect(function () { scheduler.run() }).not.to.throw();
-  });
+    expect(typeof scheduler.registeredTasks).to.equal(typeof [])
+    expect(scheduler.registeredTasks.length).to.equal(1)
+  })
 
-  it('Should fail to run gracefully if task dir is empty', function * () {
-    this.timeout(0);
-    const scheduler = new Scheduler(HelpersNoTasks);
+  it('Should ignore invalid task file types', () => {
+    const Helpers = getHelpers('badFile')
+    const scheduler = new Scheduler(Helpers)
+    expect(scheduler.run.bind(scheduler)).not.to.throw()
+  })
+
+  it('Should fail to run gracefully if task has no schedule property', () => {
+    const Helpers = getHelpers('noSchedule')
+    const scheduler = new Scheduler(Helpers)
+    expect(scheduler.run.bind(scheduler)).to.throw()
+  })
+
+  it('Should fail to run gracefully if task has no handler', () => {
+    const Helpers = getHelpers('noHandler')
+    const scheduler = new Scheduler(Helpers)
+    expect(scheduler.run.bind(scheduler)).to.throw()
+  })
+
+  it('Should fail to run gracefully if no task dir exists', () => {
+    const Helpers = getHelpers('noTasksDir')
+    const scheduler = new Scheduler(Helpers)
+    expect(scheduler.run.bind(scheduler)).not.to.throw()
+  })
+
+  it('Should fail to run gracefully if task dir is empty', () => {
+    const Helpers = getHelpers('noTasks')
+    const scheduler = new Scheduler(Helpers)
     scheduler.run()
-    expect(scheduler.registeredTasks.length).to.equal(0);
-  });
+    expect(scheduler.registeredTasks.length).to.equal(0)
+  })
 
-});
+})

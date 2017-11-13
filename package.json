@@ -1,35 +1,34 @@
 {
   "name": "adonis-scheduler",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "Easy task scheduling for AdonisJS",
-  "main": "index.js",
   "scripts": {
-    "test": "istanbul cover _mocha -- -R spec test",
-    "coverage": "istanbul cover ./node_modules/.bin/_mocha test",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -R spec test",
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test",
     "eslint": "eslint ."
   },
   "author": "Nicholas Rempel <nbrempel@gmail.com>",
+  "contributors": [
+    "Artem Kolesnik <ya@artemkolesnik.ru>"
+  ],
   "license": "MIT",
   "dependencies": {
-    "co": "^4.6.0",
-    "node-schedule": "^1.1.1"
-  },
-  "peerDependencies": {
-    "adonis-fold": "^3.0.1"
+    "@adonisjs/ace": "^4.0.4",
+    "@adonisjs/fold": "^4.0.2",
+    "@adonisjs/ignitor": "^1.0.6",
+    "boxen": "^1.2.1",
+    "debug": "^3.0.0",
+    "lodash": "^4.17.4",
+    "node-schedule": "^1.2.4",
+    "pluralize": "^6.0.0"
   },
   "devDependencies": {
-    "adonis-fold": "^3.0.1",
-    "chai": "^3.2.0",
-    "co": "^4.6.0",
-    "co-mocha": "^1.1.2",
-    "coveralls": "^2.11.4",
-    "eslint-config-airbnb": "^9.0.1",
-    "istanbul": "^0.3.20",
-    "mocha": "^2.3.2",
-    "mocha-lcov-reporter": "0.0.2"
-  },
-  "directories": {
-    "test": "test"
+    "chai": "^4.1.1",
+    "coveralls": "^2.13.1",
+    "eslint": "^4.4.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0",
+    "mocha-lcov-reporter": "^1.3.0"
   },
   "repository": {
     "type": "git",
@@ -40,6 +39,15 @@
     "task",
     "scheduler",
     "cron"
+  ],
+  "engines": {
+    "node": ">= 7.0.0"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "providers/",
+    "src/"
   ],
   "bugs": {
     "url": "https://github.com/nrempel/adonis-scheduler/issues"
