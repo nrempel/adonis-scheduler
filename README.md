@@ -2,6 +2,8 @@
 
 This library provides an easy way to schedule recurring tasks for AdonisJS.
 
+> This is lib for AdonisJS version 3
+
 ## Install
 
 ```
