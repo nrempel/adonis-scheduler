@@ -65,8 +65,8 @@ Special thanks to the creator(s) of [AdonisJS](http://adonisjs.com/) for creatin
 
 [appveyor-url]: https://ci.appveyor.com/project/nrempel/adonis-scheduler
 
-[npm-image]: https://img.shields.io/npm/v/nrempel/adonis-scheduler.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/nrempel/adonis-scheduler
+[npm-image]: https://img.shields.io/npm/v/adonis-scheduler.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/adonis-scheduler
 
 [travis-image]: https://img.shields.io/travis/nrempel/adonis-scheduler/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/nrempel/adonis-scheduler
