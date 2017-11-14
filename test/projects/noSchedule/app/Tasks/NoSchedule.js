@@ -1,9 +1,8 @@
 'use strict'
 
 class NoSchedule {
-
-  handle () {}
-
+  handle () {
+  }
 }
 
 module.exports = NoSchedule

@@ -65,12 +65,12 @@ class Scheduler {
     const taskInstance = ioc.make(task)
 
     // Every task must expose a schedule
-    if (!task.schedule) {
+    if (!('schedule' in task)) {
       throw CE.RuntimeException.undefinedTaskSchedule(file)
     }
 
     // Every task must expose a handle function
-    if (!taskInstance.handle) {
+    if (!('handle' in taskInstance)) {
       throw CE.RuntimeException.undefinedTaskHandle(file)
     }
 
@@ -105,15 +105,16 @@ class Scheduler {
     } catch (e) {
       // If the directory isn't found, log a message and exit gracefully
       if (e.code === 'ENOENT') {
-        debug('The tasks directory <%s> does not exist. Exiting.', this.tasksPath)
-        return
-      } else {
-        // If it's some other error, bubble up exception
-        throw e
+        throw CE.RuntimeException.notFoundTask(this.tasksPath)
       }
+
+      throw e
     }
 
-    taskFiles.forEach(this._fetchTask.bind(this))
+    for (let taskFile of taskFiles) {
+      await this._fetchTask(taskFile)
+    }
+
     debug('scheduler running %d tasks', this.registeredTasks.length)
   }
 }

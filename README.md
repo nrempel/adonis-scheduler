@@ -1,5 +1,10 @@
 # Adonis Scheduler Provider
 
+[![NPM Version][npm-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Appveyor][appveyor-image]][appveyor-url]
+[![Coveralls][coveralls-image]][coveralls-url]
+
 This library provides an easy way to schedule recurring tasks for AdonisJS v4.
 
 > Use branch *adonis-v3* for AdonisJS version 3
@@ -55,3 +60,17 @@ Jobs are easy to create. Run `adonis make:task Example`. They expose the followi
 ## Thanks
 
 Special thanks to the creator(s) of [AdonisJS](http://adonisjs.com/) for creating such a great framework.
+
+[appveyor-image]: https://img.shields.io/appveyor/ci/nrempel/adonis-scheduler/master.svg?style=flat-square
+
+[appveyor-url]: https://ci.appveyor.com/project/nrempel/adonis-scheduler
+
+[npm-image]: https://img.shields.io/npm/v/nrempel/adonis-scheduler.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/nrempel/adonis-scheduler
+
+[travis-image]: https://img.shields.io/travis/nrempel/adonis-scheduler/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/nrempel/adonis-scheduler
+
+[coveralls-image]: https://img.shields.io/coveralls/nrempel/adonis-scheduler/develop.svg?style=flat-square
+
+[coveralls-url]: https://coveralls.io/github/nrempel/adonis-scheduler

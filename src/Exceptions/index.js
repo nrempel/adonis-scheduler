@@ -21,7 +21,7 @@ class RuntimeException extends GE.RuntimeException {
   /**
    * This exception is raised when task an undefined schedule
    *
-   * @method undefinedRelation
+   * @method undefinedTaskSchedule
    *
    * @param  {String}          task
    *
@@ -34,7 +34,7 @@ class RuntimeException extends GE.RuntimeException {
   /**
    * This exception is raised when task an undefined handle
    *
-   * @method undefinedRelation
+   * @method undefinedTaskHandle
    *
    * @param  {String}          task
    *
@@ -47,7 +47,7 @@ class RuntimeException extends GE.RuntimeException {
   /**
    * This exception is raised when task an undefined handle
    *
-   * @method undefinedRelation
+   * @method undefinedInstanceTask
    *
    * @param  {String}          task
    *
@@ -55,6 +55,19 @@ class RuntimeException extends GE.RuntimeException {
    */
   static undefinedInstanceTask (task) {
     return new this(`${task} is not extend of class Task`, 500, 'E_INVALID_TASK_INSTANCE')
+  }
+
+  /**
+   * This exception is raised when task an undefined handle
+   *
+   * @method notFoundTask
+   *
+   * @param  {String}          dir
+   *
+   * @return {Object}
+   */
+  static notFoundTask (dir) {
+    return new this(`Not found task dir ${dir}`, 500, 'E_INVALID_SCHEDULER_DIR')
   }
 }
 
