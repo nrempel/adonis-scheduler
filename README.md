@@ -2,7 +2,7 @@
 
 This library provides an easy way to schedule recurring tasks for AdonisJS v4.
 
-> Use branch *adonis-v3* for AdonisJS version 3
+> Use branch [adonis-v3](https://github.com/nrempel/adonis-scheduler/tree/adonis-v3) for AdonisJS version 3
 
 ## Install
 
