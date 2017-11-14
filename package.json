@@ -1,6 +1,6 @@
 {
   "name": "adonis-scheduler",
-  "version": "3.1.2",
+  "version": "3.0.1",
   "description": "Easy task scheduling for AdonisJS",
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
