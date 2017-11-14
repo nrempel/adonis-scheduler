@@ -1,13 +1,13 @@
 'use strict'
 
-class Good {
+const Task = use('Task')
 
-  static get schedule() {
+class Good extends Task {
+  static get schedule () {
     return '*/1 * * * * *'
   }
 
   async handle () {
-
   }
 }
 

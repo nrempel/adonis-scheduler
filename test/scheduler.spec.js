@@ -1,68 +1,98 @@
 'use strict'
 
 const path = require('path')
+const test = require('japa')
+const { ioc } = require('@adonisjs/fold')
+const { Helpers, Logger } = require('@adonisjs/sink')
 const Scheduler = require('../src/Scheduler')
-const chai = require('chai')
-const expect = chai.expect
 
-describe('Scheduler', function () {
-
+test.group('Scheduler', (group) => {
   /**
-   * @param {String} projectName
-   * @return {{appRoot: appRoot}}
+   * @param {String} name
+   * @return {Helpers}
    */
-  function getHelpers (projectName) {
-    return {
-      appRoot: function () {
-        return path.join(__dirname, `./projects/${projectName}`)
-      }
-    }
+  function getHelpers (name) {
+    ioc.fake('Adonis/Src/Helpers', () => new Helpers(path.join(__dirname, `./projects/${name}`)))
+    return ioc.use('Adonis/Src/Helpers')
   }
 
-  it('Should instantiate correctly', async () => {
-    const Helpers = getHelpers('good')
-    const scheduler = new Scheduler(Helpers)
-    expect(scheduler.tasksPath).to.equal(path.join(Helpers.appRoot(), 'app', 'Tasks'))
-    expect(scheduler.registeredTasks).to.eql([])
+  group.before(() => {
+    ioc.fake('Task', () => require('./../src/Scheduler/Task'))
+    ioc.fake('Adonis/Src/Logger', () => new Logger())
   })
 
-  it('Should run with good tasks', () => {
+  test('Should instantiate correctly', (assert) => {
     const Helpers = getHelpers('good')
     const scheduler = new Scheduler(Helpers)
-    scheduler.run()
-    expect(typeof scheduler.registeredTasks).to.equal(typeof [])
-    expect(scheduler.registeredTasks.length).to.equal(1)
+    assert.equal(scheduler.tasksPath, path.join(Helpers.appRoot(), 'app', 'Tasks'))
+    assert.deepEqual(scheduler.registeredTasks, [])
   })
 
-  it('Should ignore invalid task file types', () => {
+  test('Should run with good tasks', async (assert) => {
+    const Helpers = getHelpers('good')
+    const scheduler = new Scheduler(Helpers)
+    await scheduler.run()
+    assert.isArray(scheduler.registeredTasks)
+    assert.equal(scheduler.registeredTasks.length, 1)
+  })
+
+  test('Should ignore invalid task file types', async (assert) => {
     const Helpers = getHelpers('badFile')
     const scheduler = new Scheduler(Helpers)
-    expect(scheduler.run.bind(scheduler)).not.to.throw()
+
+    try {
+      await scheduler.run()
+      assert.isTrue(true)
+    } catch (e) {
+      assert.isTrue(false)
+    }
   })
 
-  it('Should fail to run gracefully if task has no schedule property', () => {
+  test('Should fail to run gracefully if task has no schedule property', async (assert) => {
     const Helpers = getHelpers('noSchedule')
     const scheduler = new Scheduler(Helpers)
-    expect(scheduler.run.bind(scheduler)).to.throw()
+
+    try {
+      await scheduler.run()
+      assert.isTrue(false)
+    } catch (e) {
+      assert.isTrue(true)
+    }
   })
 
-  it('Should fail to run gracefully if task has no handler', () => {
+  test('Should fail to run gracefully if task has no handler', async (assert) => {
     const Helpers = getHelpers('noHandler')
     const scheduler = new Scheduler(Helpers)
-    expect(scheduler.run.bind(scheduler)).to.throw()
+
+    try {
+      await scheduler.run()
+      assert.isTrue(false)
+    } catch (e) {
+      assert.isTrue(true)
+    }
   })
 
-  it('Should fail to run gracefully if no task dir exists', () => {
+  test('Should fail to run gracefully if no task dir exists', async (assert) => {
     const Helpers = getHelpers('noTasksDir')
     const scheduler = new Scheduler(Helpers)
-    expect(scheduler.run.bind(scheduler)).not.to.throw()
+
+    try {
+      await scheduler.run()
+      assert.isTrue(false)
+    } catch (e) {
+      assert.isTrue(true)
+    }
   })
 
-  it('Should fail to run gracefully if task dir is empty', () => {
+  test('Should fail to run gracefully if task dir is empty', async (assert) => {
     const Helpers = getHelpers('noTasks')
     const scheduler = new Scheduler(Helpers)
-    scheduler.run()
-    expect(scheduler.registeredTasks.length).to.equal(0)
-  })
 
+    try {
+      await scheduler.run()
+      assert.isTrue(false)
+    } catch (e) {
+      assert.isTrue(true)
+    }
+  })
 })
