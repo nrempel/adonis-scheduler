@@ -71,6 +71,5 @@ Special thanks to the creator(s) of [AdonisJS](http://adonisjs.com/) for creatin
 [travis-image]: https://img.shields.io/travis/nrempel/adonis-scheduler/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/nrempel/adonis-scheduler
 
-[coveralls-image]: https://img.shields.io/coveralls/nrempel/adonis-scheduler/develop.svg?style=flat-square
-
+[coveralls-image]: https://coveralls.io/repos/github/nrempel/adonis-scheduler/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/nrempel/adonis-scheduler
