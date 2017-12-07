@@ -7,7 +7,7 @@ This library provides an easy way to schedule recurring tasks for AdonisJS.
 ## Install
 
 ```
-npm install --save adonis-scheduler
+npm install --save adonis-scheduler@2
 ```
 
 ## Configure
