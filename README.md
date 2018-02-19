@@ -44,13 +44,13 @@ const aceProviders = [
 
 ### Starting the scheduler
 
-Starting an instance of the kue listener is easy with the included ace command. Simply run `adonis run:scheduler`.
+Starting an instance of the kue listener is easy with the included ace command. Simply run `node ace run:scheduler`.
 
 The provider looks for jobs in the `app/Tasks` directory of your AdonisJS project and will automatically register a handler for any tasks that it finds.
 
 ### Creating your first task
 
-Jobs are easy to create. Run `adonis make:task Example`. They expose the following properties:
+Jobs are easy to create. Run `node ace make:task Example`. They expose the following properties:
 
 | Name        | Required | Type      | Static | Description                                           |
 |-------------|----------|-----------|--------|--------------------------------------------------------|
