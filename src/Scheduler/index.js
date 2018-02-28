@@ -111,6 +111,8 @@ class Scheduler {
       throw e
     }
 
+    taskFiles = taskFiles.filter(file => path.extname(file) === '.js')
+
     for (let taskFile of taskFiles) {
       await this._fetchTask(taskFile)
     }
