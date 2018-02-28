@@ -15,6 +15,7 @@ class SchedulerProvider extends ServiceProvider {
    */
   _registerScheduler () {
     this.app.singleton('Adonis/Addons/Scheduler', () => make(require('../src/Scheduler')))
+    this.app.alias('Adonis/Addons/Scheduler', 'Scheduler')
   }
 
   /**
