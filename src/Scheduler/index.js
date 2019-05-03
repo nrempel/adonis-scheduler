@@ -88,7 +88,7 @@ class Scheduler {
     }
 
     // Register task handler
-    this.instance.scheduleJob(task.schedule, taskInstance._run.bind(taskInstance))
+    this.instance.scheduleJob(task.name, task.schedule, taskInstance._run.bind(taskInstance))
   }
 
   /**

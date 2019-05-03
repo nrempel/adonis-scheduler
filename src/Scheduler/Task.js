@@ -171,14 +171,22 @@ class Task {
     types.forEach((method) => {
       this[method] = (...args) => {
         this._addLogPrefix(args)
-        this.loggerInstance[method](...args)
+        this.loggerInstance[method](this._logMessage(args), ...args)
       }
     })
 
     this['log'] = (level, ...args) => {
       this._addLogPrefix(args)
-      this.loggerInstance['log'](level, ...args)
+      this.loggerInstance['log'](level, this._logMessage(args), ...args)
     }
+  }
+
+  /**
+   * @param {Array} args
+   * @private
+   */
+  _logMessage (args) {
+    return ' %j'.repeat(args.length).trim()
   }
 
   /**
