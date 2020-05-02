@@ -12,7 +12,7 @@ class Task {
   /**
    * @return {Array}
    */
-  static get inject () {
+  static get inject() {
     return ['Adonis/Src/Helpers', 'Adonis/Src/Logger']
   }
 
@@ -22,7 +22,7 @@ class Task {
    *
    * @return {Boolean}
    */
-  static get useLock () {
+  static get useLock() {
     return false
   }
 
@@ -31,7 +31,7 @@ class Task {
    *
    * @return {Boolean}
    */
-  static get useLogPrefix () {
+  static get useLogPrefix() {
     return true
   }
 
@@ -41,7 +41,7 @@ class Task {
    *
    * @return {null|String}
    */
-  static get loggerDriver () {
+  static get loggerDriver() {
     return null
   }
 
@@ -49,7 +49,7 @@ class Task {
    * @param {Object} Helpers
    * @param {Object} Logger
    */
-  constructor (Helpers, Logger) {
+  constructor(Helpers, Logger) {
     this.Helpers = Helpers
     this.Logger = Logger
     this.name = this._getName()
@@ -67,7 +67,7 @@ class Task {
    * @return {String}
    * @private
    */
-  _getName () {
+  _getName() {
     return this.constructor.name
       .replace(/([A-Z])/g, ' $1')
       .split(' ')
@@ -80,7 +80,7 @@ class Task {
    * @return {Logger}
    * @private
    */
-  _getLogger () {
+  _getLogger() {
     const driver = this.constructor.loggerDriver
     if (driver) {
       return this.Logger.driver(driver)
@@ -92,24 +92,24 @@ class Task {
    * @return {Locker}
    * @private
    */
-  _getLocker () {
+  _getLocker() {
     return new Locker(this.name, this.Helpers.tmpPath())
   }
 
   /**
    * @return {void}
    */
-  async _run () {
+  async _run() {
     const useLock = this.constructor.useLock
 
     if (useLock) {
-      const locked = await this.locker.check()
-      if (locked) {
-        this.warning('Task is running, exit')
+      try {
+        const locked = await this.locker.check()
+        if (locked) return
+        await this.locker.lock()
+      } catch (e) {
         return
       }
-
-      await this.locker.lock()
     }
 
     this.startedAt = new Date()
@@ -134,7 +134,7 @@ class Task {
    * @param {Boolean} [source]    Set true for return milliseconds value number
    * @return {Number}
    */
-  duration (source = false) {
+  duration(source = false) {
     let duration = new Date() - this.startedAt
 
     if (source) {
@@ -156,7 +156,7 @@ class Task {
    *
    * @private
    */
-  _extendLogger () {
+  _extendLogger() {
     const types = [
       'debug',
       'info',
@@ -185,7 +185,7 @@ class Task {
    * @param {Array} args
    * @private
    */
-  _addLogPrefix (args) {
+  _addLogPrefix(args) {
     if (!this.constructor.useLogPrefix) {
       return
     }
