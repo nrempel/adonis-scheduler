@@ -103,13 +103,13 @@ class Task {
     const useLock = this.constructor.useLock
 
     if (useLock) {
-      const locked = await this.locker.check()
-      if (locked) {
-        this.warning('Task is running, exit')
+      try {
+        const locked = await this.locker.check()
+        if (locked) return
+        await this.locker.lock()
+      } catch (e) {
         return
       }
-
-      await this.locker.lock()
     }
 
     this.startedAt = new Date()
