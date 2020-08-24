@@ -33,7 +33,7 @@ test.group('Scheduler', (group) => {
     const scheduler = new Scheduler(Helpers)
     await scheduler.run()
     assert.isArray(scheduler.registeredTasks)
-    assert.equal(scheduler.registeredTasks.length, 1)
+    assert.equal(scheduler.registeredTasks.length, 3)
   })
 
   test('Should ignore invalid task file types', async (assert) => {
