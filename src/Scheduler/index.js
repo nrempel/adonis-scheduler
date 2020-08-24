@@ -119,19 +119,26 @@ class Scheduler {
     debug('scheduler running %d tasks', this.registeredTasks.length)
   }
 
-  _getFiles(directory, relativePath = "") {
+  /**
+   * Get all files in the `Task` directory.
+   * 
+   * @param {String} directory 
+   * @param {String} relativeDir 
+   * @private
+   */
+  _getFiles(directory, relativeDir = "") {
     let result = [];
     
     for (const file of fs.readdirSync(directory)) {
       const fullPath = path.join(directory, file);
-      const relativeFile = path.join(relativePath, file)
+      const relativePath = path.join(relativeDir, file)
       
       if (fs.statSync(fullPath).isDirectory()) {
-        result.push(...this._getFiles(fullPath, relativeFile));
+        result.push(...this._getFiles(fullPath, relativePath));
         continue;
       }
 
-      result.push(relativeFile);
+      result.push(relativePath);
     }
 
     return result;
