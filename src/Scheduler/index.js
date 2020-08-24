@@ -101,7 +101,7 @@ class Scheduler {
     let taskFiles
 
     try {
-      taskFiles = fs.readdirSync(this.tasksPath)
+      taskFiles = this._getFiles(this.tasksPath)
     } catch (e) {
       // If the directory isn't found, log a message and exit gracefully
       if (e.code === 'ENOENT') {
@@ -112,12 +112,29 @@ class Scheduler {
     }
 
     taskFiles = taskFiles.filter(file => path.extname(file) === '.js')
-
     for (let taskFile of taskFiles) {
       await this._fetchTask(taskFile)
     }
 
     debug('scheduler running %d tasks', this.registeredTasks.length)
+  }
+
+  _getFiles(directory, relativePath = "") {
+    let result = [];
+    
+    for (const file of fs.readdirSync(directory)) {
+      const fullPath = path.join(directory, file);
+      const relativeFile = path.join(relativePath, file)
+      
+      if (fs.statSync(fullPath).isDirectory()) {
+        result.push(...this._getFiles(fullPath, relativeFile));
+        continue;
+      }
+
+      result.push(relativeFile);
+    }
+
+    return result;
   }
 }
 
